@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Pagina Inicio</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1>Inicio</h1>
+        <!--Lista de individuos mostrar-->
+        <br/>
+        <div th:if="${individuos!= null and !individuos.empty}"> 
+            <table border="2">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apelido</th>
+                    <th>Edad</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                </tr>
+                <tr th:each="individuo : ${individuos}">
+                    <td th:text="${individuo.nombre}">Muesta nombre</td>
+                    <td th:text="${individuo.apellido}">Muesta apellido</td>
+                    <td th:text="${individuo.edad}">Muesta edad</td>
+                    <td th:text="${individuo.correo}">Muesta correo</td>
+                    <td th:text="${individuo.telefono}">Muesta telefono</td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${individuos == null or individuos.empty}">La vista no tiene info</div>
+
+
+        <!--Para mostrar el objeto individuo-->
+<!--        <br/>
+        Nombre : <span th:text="${individuo.nombre}">Muesta nombre</span>
+        <br/>
+        <br/>
+        Apellido : <span th:text="${individuo.apellido}">Muesta apellido</span>
+        <br/>
+        <br/>
+        Edad : <span th:text="${individuo.edad}">Muesta edad</span>
+        <br/>
+        <br/>
+        Correo : <span th:text="${individuo.correo}">Muesta correo</span>
+        <br/>
+        <br/>
+        Telefono : <span th:text="${individuo.telefono}">Muesta telefono</span>
+        <br/>-->
+
+
+    </body>
+</html>

@@ -1,0 +1,197 @@
+Indicaciones del video curso de Sprint boot con java en netbeans
+https://www.youtube.com/watch?v=mobv4vSSAmU&list=PLCIjncxyvEHbSAhlMhSrMROJtg1s_tlG8&index=1&pp=iAQB
+
+1. Video 
+- Introduccion de arquitectura a utilizar sprint boot, thymeleaf, mysql
+- instaladores y plugin necesarios
+- pro
+
+2. Video
+- hola mundo con Sprint initializacion
+
+
+3. Video
+- configuracion de plugin para netbeans y introduccion a aplication properties para enc.
+#server.port = 8096
+#logging.level.root=info
+#para mostrar info en consola
+#logging.level.root= debug
+logging.level.web=debug
+spring.main.banner-mode=off
+spring.thymeleaf.cache=false
+
+indice.hola2= Cambiando mensaje de Enviando mensaje desde app propertes
+
+
+- instalador de plugin para netbeans
+https://plugins.netbeans.apache.org/catalogue/?id=4
+
+4. Video 
+- Uso de thymeleaf para vistas en html y una explicacion del MVC con sprint
+
+5. Video 
+- Envio de informacion desde el controlador(backend) a la vista de thymeleaf con objetos individuos
+- envio de info con aplication properties
+
+6. Video 
+- creacion de una nueva entidad(clase) de dominio example.com.entity que es inviduos
+NOTA: con esto ya no seria necesario poner el set y get de cada uno import lombok.Data;
+
+7. Video
+- instalador de mysql con mysql workbench para administacion de schemas
+- usamos la db con docker
+
+8. Video
+- creacion de base de datos, tablas, datos de indivios en mysql workbeands
+
+9. Video
+- iteracion de la lista de clase individios con foreach consumiendose desde la vista de thymeleaf
+- validaciones de if dentro de la vista
+- forma de creacion y agregacion de una una lista
+        
+//        List<Individuo> individuos = new ArrayList();
+//        individuos.add(individuo);
+//        individuos.add(individuo);
+        
+        List individuos = Arrays.asList(individuo, individuo2);
+
+
+10. Video
+- conexion de mysql desde libreria indepediente de netbeasm para conexion de mysql
+- 
+
+
+11. Video
+- conexxion de base de datos desde sprint data en aplication properties
+- cuando se instala dependencia click derecho Insert code y dependencias de sprint y buscas
+- cuando se instala sprint data jpa primero se tiene que configurar la conexion en el aplication properties
+# Conexion DB mysql
+spring.datasource.url=jdbc:mysql://localhost/test?useSSL=false&serverTimeZone=UTC&allPublicKeyRetrival=true
+spring.datasource.username=root
+spring.datasource.password=Admin
+spring.datasource.driver-class-name=com.mysql.cj:jdbc.Driver
+spring.jpa.database-platform=org.hibernate.dialect.MySql8Dialect
+#Mensajes debug de SQL en consola
+spring.jpa.properties.hibernate.forma_sql=true
+logging.level.org.hibernate.SQL=debug
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=trace
+
+
+
+
+12. Video
+- arreglos de problema al momento de clean and build
+- se definio para el consumo de la entity con la db con diferentes importarniones de jakarta
+
+
+
+13. Video
+- creacion de clase data access object para recuperar informacion de la vista a la db
+- se creo un clase interfaz para dao para usar el metodo de traer todo fillall
+  //Con esto se consume los datos de la db en la vista
+        Iterable<Individuo> individuos = individuoDao.findAll();
+        log.info("estoy ejecutando en controller MVC");
+        model.addAttribute("individuos", individuos);
+        return "indice";
+
+14.Video
+- creacion de capa de servicio
+- creacion de CRUD para la capa service y utilizar dichos metodos por defectos
+
+
+15 video
+- Se creo otras rutas de mapeo de post para insercion que se llaman desde el servicio
+- Se creo una direccion de vista dentro de esta se daba la imput y label para individuo con 
+post que from para identificacion de los atributos a hacer post
+
+16 video
+- se creo una nueva ruta para editar los datos, se agrego nuevos campos al grid,
+ruta para actualizar
+@GetMapping("/cambiar/{id_individuo}")
+    public String cambiar(Individuo individuo, Model model){
+        individuo = individuo = individuoServicio.localizarIndividuo(individuo);
+        model.addAttribute("individuo",individuo);
+        return "cambiar";
+    }
+
+implementos en la vista necesarios para actualizar con el mimso boton
+            <input type="hidden" name="id_individuo" th:field="*{id_individuo}"/>
+
+17 video
+- explicacion de funcion de eliminar
+- se cre una nueva ruta y una nueva opcion para el grid
+- se creo otra forma de eliminar
+
+18 video
+- validar un crud con todos los cam
+
+
+19. video
+- uso de thymeleaf para crear plantillas repetitivas para usarlas en otras paginas
+ejemplo
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>PlantillaTh</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:fragment="encabezado">
+            <h1>Control Consumidor</h1>
+        </header>
+    </body>
+</html>
+
+
+para el uso
+        <header th:replace="Plantilla/plantilla :: encabezado"/>
+
+
+
+
+
+
+
+
+DEPENDECIAS QUE ABITUALMETE USO
+<dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+    </dependencies>
